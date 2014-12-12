@@ -56,9 +56,10 @@ describe('Token', function () {
   };
 
   var server = new Hapi.Server({ debug: false });
+  server.connection({});
   before(function (done) {
 
-    server.pack.register(require('../'), function (err) {
+    server.register(require('../'), function (err) {
 
       expect(err).to.not.exist;
       server.auth.strategy('default', 'jwt', 'required', { key: privateKey,  validateFunc: loadUser });
@@ -97,7 +98,8 @@ describe('Token', function () {
     };
 
     var server = new Hapi.Server({ debug: false });
-    server.pack.register(require('../'), function (err) {
+    server.connection({});
+    server.register(require('../'), function (err) {
       expect(err).to.not.exist;
 
       server.auth.strategy('default', 'jwt', 'required', { key: privateKey });
@@ -309,4 +311,3 @@ describe('Token', function () {
   });
 
 });
-
